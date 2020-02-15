@@ -4,7 +4,7 @@ import lombok.Data;
 
 import java.util.Date;
 
-@Data
+@Data//相当于get set方法
 public class Blog {
     private Integer id;
     private String title;
