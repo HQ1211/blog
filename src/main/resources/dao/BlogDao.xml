@@ -5,4 +5,8 @@
     <select id="selectBlogByUserName" resultType="club.banyuan.bean.Blog">
         SELECT b.* FROM blog AS b JOIN `user` AS `u` ON b.user_id = u.id WHERE u.name = #{username}
     </select>
+    <select id="selectBlogByUserNameWithPageInfo" resultType="club.banyuan.bean.Blog">
+        select blog.* from (blog join user on blog.user_id=user.id)
+        where user.name=#{username} limit #{limit} offset #{offset}
+    </select>
 </mapper>
