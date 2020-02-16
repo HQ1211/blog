@@ -4,6 +4,7 @@ import club.banyuan.bean.Blog;
 import club.banyuan.bean.User;
 import club.banyuan.service.BlogService;
 import club.banyuan.service.UserService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,26 +30,27 @@ public class BlogController {
         //username -> user
         //userService ->getUserByUserName
         User user=userService.findUserByName(username);
-
-        //username -> List<Blog> -> blogs
-        //blogService ->getBlogsByUserName
-        List<Blog> blogs=blogService.getPageBlogByUserName(username,page,size);
-
-        //判断是否有上一页
-        boolean hasPre=page ==1 ?false:true;
-
-        //判断是否有下一页
-        List<Blog> nextPageBlogs=blogService.getPageBlogByUserName(username,page+1,size);
-        boolean hasNext=(nextPageBlogs.size()==0)?false:true;
-
-
-        model.addAttribute("blogs",blogs);
+//
+//        //username -> List<Blog> -> blogs
+//        //blogService ->getBlogsByUserName
+//        List<Blog> blogs=blogService.getPageBlogByUserName(username,page,size);
+//
+//        //判断是否有上一页
+//        boolean hasPre=page ==1 ?false:true;
+//
+//        //判断是否有下一页
+//        List<Blog> nextPageBlogs=blogService.getPageBlogByUserName(username,page+1,size);
+//        boolean hasNext=(nextPageBlogs.size()==0)?false:true;
+//
+//
+//        model.addAttribute("blogs",blogs);
+//        model.addAttribute("user",user);
+//        model.addAttribute("hasPre",hasPre);
+//        model.addAttribute("hasNext",hasNext);
+//        model.addAttribute("page",page);
+        PageInfo pageInfo=blogService.pageUserBlog(username,page,size);
         model.addAttribute("user",user);
-        model.addAttribute("hasPre",hasPre);
-        model.addAttribute("hasNext",hasNext);
-        model.addAttribute("page",page);
-
-
+        model.addAttribute("blogs",pageInfo);
 
 
         return "list";
