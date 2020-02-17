@@ -10,4 +10,5 @@ public interface BlogDao {
     List<Blog> selectBlogByUserName(String username);
     //分页接口 offset-> 共多少条 limit-> 每页多少条
     List<Blog> selectBlogByUserNameWithPageInfo(String username,Integer offset,Integer limit);
+    Blog selectBlogById(Integer id);
 }

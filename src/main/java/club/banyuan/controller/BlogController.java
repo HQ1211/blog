@@ -1,8 +1,10 @@
 package club.banyuan.controller;
 
 import club.banyuan.bean.Blog;
+import club.banyuan.bean.Comment;
 import club.banyuan.bean.User;
 import club.banyuan.service.BlogService;
+import club.banyuan.service.CommentService;
 import club.banyuan.service.UserService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,23 @@ public class BlogController {
     private UserService userService;
     @Autowired
     private BlogService blogService;
+    @Autowired
+    private CommentService commentService;
+
+    @GetMapping("/blogs/{blogId}")
+    String getBlog(@PathVariable Integer blogId,Model model){
+        //blogId --> blog
+        Blog blog=blogService.getBlogByBlogId(blogId);
+        //blogId -->comments
+        List<Comment> comments= commentService.findBlogComments(blogId);
+
+        //blog -->model
+        model.addAttribute("blog",blog);
+        model.addAttribute("comments",comments);
+
+
+        return "item";
+    }
 
     @GetMapping("/user/{username}")
     String getUserBlogs(@PathVariable String username,

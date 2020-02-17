@@ -33,6 +33,8 @@ public class BlogService {
 
         return  new PageInfo(allBlogs);
     }
-
+    public Blog getBlogByBlogId(Integer blogId){
+        return blogDao.selectBlogById(blogId);
+    }
 
 }
